@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Website;
-use App\Models\User;
-use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Events\PostPublished;
+
 
 class PostController extends Controller
 {
@@ -23,9 +23,11 @@ class PostController extends Controller
         }
 
         $post = $website->posts()->create($validated);
+        // publish event for the post created
+        event(new PostPublished($post));
 
         return response()->json([
-            'message' => 'Post created successfully.',
+            'message' => 'Post created successfully and event is fired.',
             'post' => $post,
         ], 201);
     }
