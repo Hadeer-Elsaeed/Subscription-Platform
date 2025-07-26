@@ -97,3 +97,14 @@ php artisan migrate:fresh --seed
 ### Postman Collection
 
 It's added here in the repo, with file name "web-sub.postman_collection.json"
+
+### Use Event/Listener part
+
+- Added the code in branch "feat/events"
+
+```bash
+    git checkout feat/events
+```
+
+It will be automated  to fire event for each post created to the Queue.
+
