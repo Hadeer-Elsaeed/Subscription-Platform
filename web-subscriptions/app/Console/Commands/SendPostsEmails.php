@@ -14,25 +14,27 @@ class SendPostsEmails extends Command
     protected $description = 'Send new post emails to subscribers who have not received them yet';
 
     public function handle()
-    {
-        $websites = Website::with('users')->get();
-        $counter =0;
+{
+    Website::chunk(100, function($websites) {
         foreach ($websites as $website) {
             $this->info("Checking website: {$website->name}");
 
-            $posts = $website->posts;
+            $website->posts->each(function ($post) use ($website) {
 
-            foreach ($posts as $post) {
-                $subscribersToSend = $website->users()->whereDoesntHave('posts', function($query) use ($post) {
-                    $query->where('posts.id', $post->id);
-                })->get();
-                foreach ($subscribersToSend as $subscriber) {
-                    SendPostEmailJob::dispatch($subscriber, $post);
-                    $this->info("Queued email for user {$subscriber->email} for post {$post->title}");
-                }
-            }
+                // Chunk subscribers who have NOT received this post yet
+                $website->users()
+                    ->whereDoesntHave('posts', fn($query) => $query->where('posts.id', $post->id))
+                    ->chunk(50, function($subscribers) use ($post) {
+                        foreach ($subscribers as $subscriber) {
+                            SendPostEmailJob::dispatch($subscriber, $post);
+                            $this->info("Queued email for user {$subscriber->email} for post {$post->title}");
+                        }
+                    });
+            });
         }
+    });
 
-        $this->info('All new post emails have been queued.');
-    }
+    $this->info('All new post emails have been queued.');
+}
+
 }
