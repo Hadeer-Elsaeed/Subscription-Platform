@@ -2,7 +2,7 @@
 
 This is a simple Laravel-based RESTful API that allows users to subscribe to websites and receive emails when new posts are published.
 
-## 🚀 Requirements
+## Requirements
 
 - PHP 8.2+
 - Composer
@@ -11,7 +11,7 @@ This is a simple Laravel-based RESTful API that allows users to subscribe to web
 
 ---
 
-## 🔧 Installation & Setup
+## Installation & Setup
 
 ```bash
 # 1. Clone the repo
