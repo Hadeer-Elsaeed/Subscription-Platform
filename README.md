@@ -93,3 +93,7 @@ Sample pivot data between users and websites
 php artisan migrate:fresh --seed
 
 ```
+
+### Postman Collection
+
+It's added here in the repo, with file name "web-sub.postman_collection.json"
