@@ -17,7 +17,7 @@ class User extends Model
     //  user can subscribe to many websites
     public function websites()
     {
-        return $this->belongsToMany(User::class, 'user_website', 'website_id', 'user_id');
+        return $this->belongsToMany(Website::class, 'user_website', 'user_id', 'website_id');
     }
 
     // Posts that have been sent to this user

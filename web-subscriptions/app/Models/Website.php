@@ -24,6 +24,6 @@ class Website extends Model
     public function users()
     {
         
-        return $this->belongsToMany(Website::class, 'user_website')->withTimestamps();
+        return $this->belongsToMany(User::class, 'user_website')->withTimestamps();
     }
 }

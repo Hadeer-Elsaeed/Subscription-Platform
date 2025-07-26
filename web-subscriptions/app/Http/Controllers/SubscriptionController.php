@@ -26,10 +26,12 @@ class SubscriptionController extends Controller
             ], 409);
         }
 
-        $user->websites()->attach($website->id);
+       $user->websites()->attach(id: $website->id);
 
         return response()->json([
             'message' => 'User subscribed successfully.'
         ], 201);
-    }
+        }
+     
+
 }
