@@ -98,6 +98,7 @@ php artisan migrate:fresh --seed
 
 It's added here in the repo, with file name "web-sub.postman_collection.json"
 
+------------------------------------------------------
 ### Use Event/Listener part
 
 - Added the code in branch "feat/events"
@@ -108,3 +109,16 @@ It's added here in the repo, with file name "web-sub.postman_collection.json"
 
 It will be automated  to fire event for each post created to the Queue.
 
+- In the same branch there is an enhancement to read posts from database in chunks 
+- And for sending emails concurrent on the queue I used Laravel Horizon
+
+```bash
+composer require laravel/horizon
+php artisan horizon:install
+php artisan migrate
+```
+Editing in config/horizon to make maxprocesses = 10 and run
+
+```bash
+php artisan horizon
+```
